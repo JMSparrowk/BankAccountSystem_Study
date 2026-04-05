@@ -82,10 +82,44 @@ public class Main {
 
             }
 
+            if (choice == 3) {
+                System.out.println("계좌를 입력하세요.");
+
+                if (!sc.hasNextLong()) {
+                    System.out.println("계좌를 다시 입력해 주세요.");
+                    sc.next();
+                    continue;
+                }
+
+                BankAccount account = findAccount(sc.nextLong());
+                if (account==null) {
+                    System.out.println("계좌가 존재하지 않습니다.");
+                    continue;
+                }
+
+                System.out.println("출금할 금액을 입력하세요");
+
+                if (!sc.hasNextLong()) {
+                    System.out.println("금액을 다시 입력하세요");
+                    sc.next();
+                    continue;
+                }
+
+                Long amount = sc.nextLong();
+                account.withdraw(amount);
+                System.out.println(account.getBalance());
+            }
+
+            if (choice == 4) {
+                findAllAccounts();
+            }
+
+            if (choice == 5) {
+                break;
+            }
+
 
         }
-        //입금
-        //출금
         //계좌 조회
         //종료
 
@@ -100,10 +134,16 @@ public class Main {
         return null;
     }
 
-//    private static List<BankAccount> findAllAccounts() {
-//
-//    }
+    private static void findAllAccounts() {
+        for (BankAccount account : accounts) {
+            System.out.println("이름" + account.getName());
+            System.out.println("계좌번호" + account.getAccountNum());
+            System.out.println("잔액" +account.getBalance());
+            System.out.println("------------------------");
+        }
+    }
 
 }
 
-///스프링부트 + 데이터베이스 이용해서 진힝하기
+///나중에 테스트 코드 작성
+///테스트할때 목업 데이터도 넣는 코드 추가하기
